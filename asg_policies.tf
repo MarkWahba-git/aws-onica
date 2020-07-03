@@ -16,7 +16,7 @@ resource "aws_cloudwatch_metric_alarm" "web_cpu_alarm_up" {
   statistic = "Average"
   threshold = "40"
 
-  dimensions {
+  dimensions = {
     AutoScalingGroupName = "${aws_autoscaling_group.web_as_group.name}"
   }
 
@@ -43,7 +43,7 @@ resource "aws_cloudwatch_metric_alarm" "web_cpu_alarm_down" {
   statistic = "Average"
   threshold = "10"
 
-  dimensions {
+  dimensions = {
     AutoScalingGroupName = "${aws_autoscaling_group.web_as_group.name}"
   }
 

@@ -1,9 +1,9 @@
 ## Creating Launch Configuration
 resource "aws_launch_configuration" "as_launch_config" {
-  image_id               = "${data.aws_ami.custom_ami.id}"
+  image_id               = "${data.aws_ami.example.id}"
   instance_type          = "t2.micro"
   security_groups        = ["${aws_security_group.web_sg.id}", "${aws_security_group.allow_ssh.id}"]
-  key_name               = "${var.ssh_key}"
+ # key_name               = "${var.ssh_key}"
   user_data = "${data.template_file.userdata.rendered}"
   lifecycle {
     create_before_destroy = true
@@ -16,7 +16,7 @@ resource "aws_autoscaling_group" "web_as_group" {
   launch_configuration = "${aws_launch_configuration.as_launch_config.id}"
   #availability_zones = ["${data.aws_availability_zones.allzones.names}"]
   #availability_zones        = "${var.availability_zones}"
-  vpc_zone_identifier       = ["${aws_subnet.public_subnet.*.id}"]
+  vpc_zone_identifier       = "${aws_subnet.public_subnet.*.id}"
   min_size = 2
   max_size = 5
   load_balancers = ["${aws_elb.elb.name}"]

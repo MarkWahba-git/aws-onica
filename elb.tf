@@ -23,7 +23,7 @@ resource "aws_security_group" "elb_sg" {
 ### Creating ELB
 resource "aws_elb" "elb" {
   name = "elb"
-  subnets = ["${aws_subnet.public_subnet.*.id}"]
+  subnets = "${aws_subnet.public_subnet.*.id}"
   security_groups = ["${aws_security_group.elb_sg.id}"]
   #availability_zones = ["${data.aws_availability_zones.allzones.names}"]
   health_check {

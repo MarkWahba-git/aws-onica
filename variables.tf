@@ -1,14 +1,8 @@
 
 variable "name" {
 	description = "base name" 
-	default = "nh"
+	default = "AWS-Onica"
 }
-variable "region" {
-  description = "AWS region"
-}
-variable "shared_credentials_file" {}
-variable "profile" {}
-
 # Ubuntu Precise 16.04 LTS (x64)
 variable "aws_amis" {
   default = {
@@ -18,21 +12,24 @@ variable "aws_amis" {
 }
 variable "vpc_cidr" {
     description = "CIDR for VPC"
-}
-variable ssh_key{
-	description = "ec2 ssh key"
+    default = "10.0.0.0/16"
 }
 
 variable "availability_zones" {
-  type = "list"
+  type    = list(string)
+  default = ["us-west-2a"]
   description = "AWS Region Availability Zones"
+ 
 }
 
 variable "public_subnet_cidr" {
   type = "list"
   description = "Public Subnet CIDR Block"
+  default =["10.0.1.0/24"]
+  
 }
 variable "private_subnet_cidr" {
   type = "list"
   description = "Private Subnet CIDR Block"
+  default = ["10.0.2.0/24"]
 }

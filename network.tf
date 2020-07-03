@@ -9,7 +9,7 @@ resource "aws_vpc" "vpc" {
   enable_dns_support   = true
 
 
-  tags {
+  tags = {
     Name = "${var.name}-vpc"
   }
 
@@ -22,7 +22,7 @@ resource "aws_subnet" "public_subnet" {
   count      = "${length(var.public_subnet_cidr)}"
   map_public_ip_on_launch = true
   lifecycle { create_before_destroy = true }
-  tags {
+  tags = {
     Name = "public_subnet_${count.index}"
   }
 }
@@ -35,7 +35,7 @@ resource "aws_subnet" "private_subnet" {
 
   availability_zone = "${element(var.availability_zones, count.index)}"
   lifecycle { create_before_destroy = true }
-  tags {
+  tags = {
     Name = "private_subnet_${count.index}"
   }
 }
@@ -44,7 +44,7 @@ resource "aws_subnet" "private_subnet" {
 resource "aws_internet_gateway" "igw" {
   vpc_id = "${aws_vpc.vpc.id}"
 
-  tags {
+  tags = {
     Name = "IGW"
   }
 }
@@ -76,7 +76,7 @@ resource "aws_route_table" "public" {
         gateway_id = "${aws_internet_gateway.igw.id}"
     }
 
-    tags {
+    tags = {
         Name = "Public Subnet Route Table"
     }
     lifecycle { create_before_destroy = true }
@@ -101,7 +101,7 @@ resource "aws_route_table" "private" {
         nat_gateway_id = "${element(aws_nat_gateway.natgw.*.id, count.index)}"
     }
     lifecycle { create_before_destroy = true }
-    tags {
+    tags = {
         Name = "Private Subnet Route Table"
     }
 }
@@ -128,3 +128,4 @@ resource "aws_security_group" "allow_ssh" {
   }
   
 }
+

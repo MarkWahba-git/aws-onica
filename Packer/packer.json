@@ -1,8 +1,8 @@
 {
   "variables": {
-    "aws_access_key": "",
-    "aws_secret_key": "",
-    "aws_profile":"nicolas.houillon",
+    "aws_access_key": "AKIAT4XSPXVPHQ7BAOEH",
+    "aws_secret_key": "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",
+    "aws_profile":"AWS-Onica",
     "aws_region":"us-west-2"
   },
   "builders": [{
